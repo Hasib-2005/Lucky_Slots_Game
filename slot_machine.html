@@ -27,9 +27,7 @@
       padding: 24px 28px 30px;
       max-width: 420px;
       width: 100%;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(148, 163, 184, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
       border: 1px solid rgba(148, 163, 184, 0.3);
     }
 
@@ -49,7 +47,7 @@
 
     .slot-subtitle {
       font-size: 0.9rem;
-      color: #9ca3af;
+      color: #e5e7eb;
       margin-top: 4px;
     }
 
@@ -62,8 +60,15 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 12px;
-      font-size: 0.95rem;
-      color: #d1d5db;
+      font-size: 1rem;
+    }
+
+    /* UPDATED — Balance brighter */
+    .balance {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.15rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     }
 
     .badge {
@@ -71,14 +76,8 @@
       border-radius: 999px;
       font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(75, 85, 99, 0.9);
-    }
-
-    .balance {
-      font-weight: 600;
-      color: #a5b4fc;
     }
 
     .slot-window {
@@ -87,14 +86,12 @@
       padding: 14px 10px;
       margin: 12px 0 16px;
       border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow:
-        inset 0 0 16px rgba(0, 0, 0, 0.7),
-        0 0 20px rgba(15, 23, 42, 0.9);
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.7);
     }
 
     .slot-row {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
@@ -106,28 +103,18 @@
       justify-content: center;
       padding: 10px 0;
       font-size: 2.2rem;
-      box-shadow:
-        inset 0 0 6px rgba(0, 0, 0, 0.8),
-        0 6px 12px rgba(0, 0, 0, 0.8);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
       border: 1px solid rgba(55, 65, 81, 0.9);
     }
 
     .slot-cell.spin-anim {
-      animation: pop 0.35s ease-out;
+      animation: pop 0.3s ease-out;
     }
 
     @keyframes pop {
-      0% {
-        transform: scale(0.7);
-        opacity: 0.4;
-      }
-      60% {
-        transform: scale(1.15);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(0.7); opacity: 0.4; }
+      60% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); }
     }
 
     .controls {
@@ -144,54 +131,43 @@
       font-size: 0.85rem;
     }
 
-    label {
-      color: #9ca3af;
+    /* UPDATED — Bet amount label brightened */
+    .input-group label {
+      color: #fafafa;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
+    /* UPDATED — Input text brighter */
     input[type="number"] {
       width: 100%;
       border-radius: 999px;
       border: 1px solid rgba(75, 85, 99, 0.9);
       background: rgba(15, 23, 42, 0.9);
       padding: 6px 12px;
-      color: #e5e7eb;
-      outline: none;
-      font-size: 0.9rem;
-    }
-
-    input[type="number"]:focus {
-      border-color: #818cf8;
-      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
+      color: #ffffff;
+      font-size: 1rem;
     }
 
     .btn-spin {
-      padding: 0 18px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #022c22;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow:
-        0 12px 24px rgba(22, 163, 74, 0.6),
+        margin-top: 20px;
+    padding: 0 14px;
+    height: 42px; /* smaller height */
+    border-radius: 14px; /* less rounded to match input */
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #022c22;
+    font-weight: 600;
+    font-size: 0.9rem; /* slightly smaller text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 80px; /* slightly narrower */
+    box-shadow:
+        0 10px 20px rgba(22, 163, 74, 0.45),
         0 0 0 1px rgba(22, 101, 52, 0.8);
-      min-width: 90px;
     }
 
-    .btn-spin:disabled {
-      background: #4b5563;
-      color: #9ca3af;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
 
     .btn-reset {
       margin-top: 4px;
@@ -209,58 +185,29 @@
       font-size: 0.9rem;
     }
 
-    .msg-main {
-      font-weight: 600;
-    }
-
-    .msg-win {
-      color: #4ade80;
-    }
-
-    .msg-lose {
-      color: #f97373;
-    }
-
-    .msg-info {
-      color: #e5e7eb;
-    }
-
-    .msg-error {
-      color: #f97373;
-    }
-
-    .small-text {
-      margin-top: 6px;
-      font-size: 0.75rem;
-      color: #6b7280;
-      text-align: center;
-    }
+    .msg-win { color: #4ade80; }
+    .msg-lose { color: #f87171; }
+    .msg-error { color: #ef4444; }
 
     @media (max-width: 480px) {
-      .slot-container {
-        margin: 12px;
-        padding: 18px 16px 22px;
-      }
-      .slot-title {
-        font-size: 1.3rem;
-      }
-      .slot-cell {
-        font-size: 1.9rem;
-      }
+      .slot-container { padding: 18px 16px; }
+      .slot-title { font-size: 1.3rem; }
+      .slot-cell { font-size: 1.9rem; }
     }
   </style>
 </head>
 <body>
+
   <div class="slot-container">
     <div class="slot-header">
-      <div class="slot-title">Java Slots</div>
+      <div class="slot-title">JAVA SLOTS</div>
       <div class="slot-subtitle">Try your luck against the machine</div>
       <div class="symbols">🍒 🍉 🍋 🔔 ⭐</div>
     </div>
 
     <div class="stats">
       <div class="balance">Balance: $<span id="balance">100</span></div>
-      <div class="badge">BET &amp; SPIN</div>
+      <div class="badge">Bet & Spin</div>
     </div>
 
     <div class="slot-window">
@@ -273,179 +220,121 @@
 
     <div class="controls">
       <div class="input-group">
-        <label for="bet">Bet amount</label>
-        <input type="number" id="bet" min="1" value="10" />
+        <label>Bet amount</label>
+        <input type="number" id="bet" min="1" value="10">
       </div>
-      <button id="spinBtn" class="btn-spin">
-        <span>Spin</span> <span>🎰</span>
-      </button>
+      <button id="spinBtn" class="btn-spin">Spin 🎰</button>
     </div>
 
     <button id="resetBtn" class="btn-reset">Reset balance</button>
 
     <div class="messages">
-      <div id="mainMsg" class="msg-main msg-info">Place your bet and spin.</div>
-      <div id="subMsg" class="small-text"></div>
+      <div id="mainMsg">Place your bet and spin.</div>
+      <div id="subMsg" style="font-size:0.8rem; color:#9ca3af;"></div>
     </div>
 
-    <div class="small-text">
-      3 of a kind pays up to 20x • Matching 2 pays up to 10x • Balance starts at $100
+    <div class="small-text" style="margin-top:10px; text-align:center; color:#6b7280;">
+      3 of a kind pays up to 20× • Matching 2 pays up to 10× • Balance starts at $100
     </div>
   </div>
 
-  <script>
-    const symbols = ["🍒", "🍉", "🍋", "🔔", "⭐"];
+<script>
+const symbols = ["🍒","🍉","🍋","🔔","⭐"];
 
-    let balance = 100;
+let balance = 100;
 
-    const balanceEl = document.getElementById("balance");
-    const betInput = document.getElementById("bet");
-    const spinBtn = document.getElementById("spinBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const mainMsg = document.getElementById("mainMsg");
-    const subMsg = document.getElementById("subMsg");
-    const slotCells = [
-      document.getElementById("slot-0"),
-      document.getElementById("slot-1"),
-      document.getElementById("slot-2"),
-    ];
+const balanceEl = document.getElementById("balance");
+const betInput = document.getElementById("bet");
+const mainMsg = document.getElementById("mainMsg");
+const subMsg = document.getElementById("subMsg");
+const spinBtn = document.getElementById("spinBtn");
+const resetBtn = document.getElementById("resetBtn");
 
-    function updateBalance() {
-      balanceEl.textContent = balance;
-    }
+const cells = [
+  document.getElementById("slot-0"),
+  document.getElementById("slot-1"),
+  document.getElementById("slot-2")
+];
 
-    function spinRow() {
-      const row = [];
-      for (let i = 0; i < 3; i++) {
-        const randomIndex = Math.floor(Math.random() * symbols.length);
-        row.push(symbols[randomIndex]);
-      }
-      return row;
-    }
+function updateBalance(){
+  balanceEl.textContent = balance;
+}
 
-    function getPayout(row, bet) {
-      // same rules as your Java version
-      if (row[0] === row[1] && row[1] === row[2]) {
-        switch (row[0]) {
-          case "🍒":
-            return bet * 3;
-          case "🍉":
-            return bet * 4;
-          case "🍋":
-            return bet * 5;
-          case "🔔":
-            return bet * 10;
-          case "⭐":
-            return bet * 20;
-          default:
-            return 0;
-        }
-      } else if (row[0] === row[1]) {
-        switch (row[0]) {
-          case "🍒":
-            return bet * 2;
-          case "🍉":
-            return bet * 3;
-          case "🍋":
-            return bet * 4;
-          case "🔔":
-            return bet * 5;
-          case "⭐":
-            return bet * 10;
-          default:
-            return 0;
-        }
-      } else if (row[1] === row[2]) {
-        switch (row[1]) {
-          case "🍒":
-            return bet * 2;
-          case "🍉":
-            return bet * 3;
-          case "🍋":
-            return bet * 4;
-          case "🔔":
-            return bet * 5;
-          case "⭐":
-            return bet * 10;
-          default:
-            return 0;
-        }
-      }
+function spinRow(){
+  return [
+    symbols[Math.floor(Math.random()*symbols.length)],
+    symbols[Math.floor(Math.random()*symbols.length)],
+    symbols[Math.floor(Math.random()*symbols.length)]
+  ];
+}
 
-      return 0;
-    }
+function getPayout(row, bet){
+  if(row[0]===row[1] && row[1]===row[2]){
+    return { "🍒":bet*3,"🍉":bet*4,"🍋":bet*5,"🔔":bet*10,"⭐":bet*20 }[row[0]] || 0;
+  }
+  if(row[0]===row[1]){
+    return { "🍒":bet*2,"🍉":bet*3,"🍋":bet*4,"🔔":bet*5,"⭐":bet*10 }[row[0]] || 0;
+  }
+  if(row[1]===row[2]){
+    return { "🍒":bet*2,"🍉":bet*3,"🍋":bet*4,"🔔":bet*5,"⭐":bet*10 }[row[1]] || 0;
+  }
+  return 0;
+}
 
-    function animateSlots() {
-      slotCells.forEach((cell) => {
-        cell.classList.remove("spin-anim");
-        // force reflow to restart animation
-        void cell.offsetWidth;
-        cell.classList.add("spin-anim");
-      });
-    }
+function handleSpin(){
+  let bet = parseInt(betInput.value);
 
-    function handleSpin() {
-      let bet = parseInt(betInput.value, 10);
+  if(!bet || bet<=0){
+    mainMsg.textContent = "Bet must be greater than 0.";
+    mainMsg.className = "msg-error";
+    return;
+  }
+  if(bet > balance){
+    mainMsg.textContent = "Insufficient funds.";
+    mainMsg.className = "msg-error";
+    return;
+  }
 
-      if (isNaN(bet) || bet <= 0) {
-        mainMsg.textContent = "Bet must be greater than 0.";
-        mainMsg.className = "msg-main msg-error";
-        subMsg.textContent = "";
-        return;
-      }
+  balance -= bet;
+  updateBalance();
 
-      if (bet > balance) {
-        mainMsg.textContent = "Insufficient funds for that bet.";
-        mainMsg.className = "msg-main msg-error";
-        subMsg.textContent = "Lower your bet or reset the game.";
-        return;
-      }
+  const row = spinRow();
 
-      balance -= bet;
-      updateBalance();
+  cells.forEach((c,i)=>{
+    c.classList.remove("spin-anim");
+    void c.offsetWidth;
+    c.classList.add("spin-anim");
+    c.textContent = row[i];
+  });
 
-      const row = spinRow();
+  const payout = getPayout(row, bet);
 
-      animateSlots();
-      slotCells.forEach((cell, index) => {
-        cell.textContent = row[index];
-      });
-
-      const payout = getPayout(row, bet);
-
-      if (payout > 0) {
-        balance += payout;
-        updateBalance();
-        mainMsg.textContent = `You won $${payout}!`;
-        mainMsg.className = "msg-main msg-win";
-        subMsg.textContent = `Nice hit! New balance: $${balance}.`;
-      } else {
-        mainMsg.textContent = "Sorry, you lost this round.";
-        mainMsg.className = "msg-main msg-lose";
-        subMsg.textContent = `Balance remaining: $${balance}.`;
-      }
-
-      if (balance <= 0) {
-        spinBtn.disabled = true;
-        mainMsg.textContent = "Game over! You're out of balance.";
-        mainMsg.className = "msg-main msg-error";
-        subMsg.textContent = "Click Reset balance to play again.";
-      }
-    }
-
-    function resetGame() {
-      balance = 100;
-      updateBalance();
-      spinBtn.disabled = false;
-      mainMsg.textContent = "Place your bet and spin.";
-      mainMsg.className = "msg-main msg-info";
-      subMsg.textContent = "";
-    }
-
-    spinBtn.addEventListener("click", handleSpin);
-    resetBtn.addEventListener("click", resetGame);
-
+  if(payout > 0){
+    balance += payout;
     updateBalance();
-  </script>
+    mainMsg.textContent = `You won $${payout}! 🎉`;
+    mainMsg.className = "msg-win";
+  } else {
+    mainMsg.textContent = "You lost this round.";
+    mainMsg.className = "msg-lose";
+  }
+
+  if(balance <= 0){
+    mainMsg.textContent = "Game Over — out of balance.";
+    mainMsg.className = "msg-error";
+  }
+}
+
+function resetGame(){
+  balance = 100;
+  updateBalance();
+  mainMsg.textContent = "Place your bet and spin.";
+  mainMsg.className = "";
+}
+
+spinBtn.onclick = handleSpin;
+resetBtn.onclick = resetGame;
+
+</script>
 </body>
 </html>
