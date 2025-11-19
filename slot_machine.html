@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Java Slots - Web Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      color: #e5e7eb;
+    }
+
+    .slot-container {
+      background: linear-gradient(145deg, #111827, #020617);
+      border-radius: 24px;
+      padding: 24px 28px 30px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(148, 163, 184, 0.2);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .slot-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .slot-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fbbf24;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+    }
+
+    .slot-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .symbols {
+      margin-top: 6px;
+      font-size: 1.4rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+    }
+
+    .balance {
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+
+    .slot-window {
+      background: radial-gradient(circle at center, #111827, #020617);
+      border-radius: 18px;
+      padding: 14px 10px;
+      margin: 12px 0 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow:
+        inset 0 0 16px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(15, 23, 42, 0.9);
+    }
+
+    .slot-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .slot-cell {
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      font-size: 2.2rem;
+      box-shadow:
+        inset 0 0 6px rgba(0, 0, 0, 0.8),
+        0 6px 12px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .slot-cell.spin-anim {
+      animation: pop 0.35s ease-out;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.7);
+        opacity: 0.4;
+      }
+      60% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .input-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    label {
+      color: #9ca3af;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 6px 12px;
+      color: #e5e7eb;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    input[type="number"]:focus {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-spin {
+      padding: 0 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow:
+        0 12px 24px rgba(22, 163, 74, 0.6),
+        0 0 0 1px rgba(22, 101, 52, 0.8);
+      min-width: 90px;
+    }
+
+    .btn-spin:disabled {
+      background: #4b5563;
+      color: #9ca3af;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .btn-reset {
+      margin-top: 4px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #9ca3af;
+      font-size: 0.75rem;
+    }
+
+    .messages {
+      min-height: 42px;
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+
+    .msg-main {
+      font-weight: 600;
+    }
+
+    .msg-win {
+      color: #4ade80;
+    }
+
+    .msg-lose {
+      color: #f97373;
+    }
+
+    .msg-info {
+      color: #e5e7eb;
+    }
+
+    .msg-error {
+      color: #f97373;
+    }
+
+    .small-text {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .slot-container {
+        margin: 12px;
+        padding: 18px 16px 22px;
+      }
+      .slot-title {
+        font-size: 1.3rem;
+      }
+      .slot-cell {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slot-container">
+    <div class="slot-header">
+      <div class="slot-title">Java Slots</div>
+      <div class="slot-subtitle">Try your luck against the machine</div>
+      <div class="symbols">🍒 🍉 🍋 🔔 ⭐</div>
+    </div>
+
+    <div class="stats">
+      <div class="balance">Balance: $<span id="balance">100</span></div>
+      <div class="badge">BET &amp; SPIN</div>
+    </div>
+
+    <div class="slot-window">
+      <div class="slot-row">
+        <div class="slot-cell" id="slot-0">🍒</div>
+        <div class="slot-cell" id="slot-1">🍉</div>
+        <div class="slot-cell" id="slot-2">🍋</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="input-group">
+        <label for="bet">Bet amount</label>
+        <input type="number" id="bet" min="1" value="10" />
+      </div>
+      <button id="spinBtn" class="btn-spin">
+        <span>Spin</span> <span>🎰</span>
+      </button>
+    </div>
+
+    <button id="resetBtn" class="btn-reset">Reset balance</button>
+
+    <div class="messages">
+      <div id="mainMsg" class="msg-main msg-info">Place your bet and spin.</div>
+      <div id="subMsg" class="small-text"></div>
+    </div>
+
+    <div class="small-text">
+      3 of a kind pays up to 20x • Matching 2 pays up to 10x • Balance starts at $100
+    </div>
+  </div>
+
+  <script>
+    const symbols = ["🍒", "🍉", "🍋", "🔔", "⭐"];
+
+    let balance = 100;
+
+    const balanceEl = document.getElementById("balance");
+    const betInput = document.getElementById("bet");
+    const spinBtn = document.getElementById("spinBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const mainMsg = document.getElementById("mainMsg");
+    const subMsg = document.getElementById("subMsg");
+    const slotCells = [
+      document.getElementById("slot-0"),
+      document.getElementById("slot-1"),
+      document.getElementById("slot-2"),
+    ];
+
+    function updateBalance() {
+      balanceEl.textContent = balance;
+    }
+
+    function spinRow() {
+      const row = [];
+      for (let i = 0; i < 3; i++) {
+        const randomIndex = Math.floor(Math.random() * symbols.length);
+        row.push(symbols[randomIndex]);
+      }
+      return row;
+    }
+
+    function getPayout(row, bet) {
+      // same rules as your Java version
+      if (row[0] === row[1] && row[1] === row[2]) {
+        switch (row[0]) {
+          case "🍒":
+            return bet * 3;
+          case "🍉":
+            return bet * 4;
+          case "🍋":
+            return bet * 5;
+          case "🔔":
+            return bet * 10;
+          case "⭐":
+            return bet * 20;
+          default:
+            return 0;
+        }
+      } else if (row[0] === row[1]) {
+        switch (row[0]) {
+          case "🍒":
+            return bet * 2;
+          case "🍉":
+            return bet * 3;
+          case "🍋":
+            return bet * 4;
+          case "🔔":
+            return bet * 5;
+          case "⭐":
+            return bet * 10;
+          default:
+            return 0;
+        }
+      } else if (row[1] === row[2]) {
+        switch (row[1]) {
+          case "🍒":
+            return bet * 2;
+          case "🍉":
+            return bet * 3;
+          case "🍋":
+            return bet * 4;
+          case "🔔":
+            return bet * 5;
+          case "⭐":
+            return bet * 10;
+          default:
+            return 0;
+        }
+      }
+
+      return 0;
+    }
+
+    function animateSlots() {
+      slotCells.forEach((cell) => {
+        cell.classList.remove("spin-anim");
+        // force reflow to restart animation
+        void cell.offsetWidth;
+        cell.classList.add("spin-anim");
+      });
+    }
+
+    function handleSpin() {
+      let bet = parseInt(betInput.value, 10);
+
+      if (isNaN(bet) || bet <= 0) {
+        mainMsg.textContent = "Bet must be greater than 0.";
+        mainMsg.className = "msg-main msg-error";
+        subMsg.textContent = "";
+        return;
+      }
+
+      if (bet > balance) {
+        mainMsg.textContent = "Insufficient funds for that bet.";
+        mainMsg.className = "msg-main msg-error";
+        subMsg.textContent = "Lower your bet or reset the game.";
+        return;
+      }
+
+      balance -= bet;
+      updateBalance();
+
+      const row = spinRow();
+
+      animateSlots();
+      slotCells.forEach((cell, index) => {
+        cell.textContent = row[index];
+      });
+
+      const payout = getPayout(row, bet);
+
+      if (payout > 0) {
+        balance += payout;
+        updateBalance();
+        mainMsg.textContent = `You won $${payout}!`;
+        mainMsg.className = "msg-main msg-win";
+        subMsg.textContent = `Nice hit! New balance: $${balance}.`;
+      } else {
+        mainMsg.textContent = "Sorry, you lost this round.";
+        mainMsg.className = "msg-main msg-lose";
+        subMsg.textContent = `Balance remaining: $${balance}.`;
+      }
+
+      if (balance <= 0) {
+        spinBtn.disabled = true;
+        mainMsg.textContent = "Game over! You're out of balance.";
+        mainMsg.className = "msg-main msg-error";
+        subMsg.textContent = "Click Reset balance to play again.";
+      }
+    }
+
+    function resetGame() {
+      balance = 100;
+      updateBalance();
+      spinBtn.disabled = false;
+      mainMsg.textContent = "Place your bet and spin.";
+      mainMsg.className = "msg-main msg-info";
+      subMsg.textContent = "";
+    }
+
+    spinBtn.addEventListener("click", handleSpin);
+    resetBtn.addEventListener("click", resetGame);
+
+    updateBalance();
+  </script>
+</body>
+</html>
